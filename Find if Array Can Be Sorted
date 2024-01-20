@@ -1,0 +1,40 @@
+You are given a 0-indexed array of positive integers nums.
+
+In one operation, you can swap any two adjacent elements if they have the same number of set bits. You are allowed to do this operation any number of times (including zero).
+
+Return true if you can sort the array, else return false.
+
+class Solution:
+    def canSortArray(self, nums: List[int]) -> bool:
+        if nums == sorted(nums):return True
+        r = []
+        x = []
+        c = j = 0
+        b = nums[0]
+        while nums[0]:
+            if nums[0]&1:
+                c+=1
+            nums[0] = nums[0]>>1
+        r.append(c)
+        a =[]
+        a.append(b)
+        for i in range(1,len(nums)):
+            c = 0
+            b = nums[i]
+            while nums[i]:
+                if nums[i]&1:
+                    c+=1
+                nums[i] = nums[i]>>1
+            if c!=r[-1]:
+                r.append(c)
+                x.append(min(a))
+                x.append(max(a))
+                a = []
+            a.append(b)
+        x.append(min(a))
+        x.append(max(a))
+
+        if x==sorted(x):return True
+        else:return False
+        
+        
