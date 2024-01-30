@@ -7,10 +7,6 @@ public:
             return ;
             }
         int digit = digits[i]-'0';
-        if(digit == 0 or digit == 1)
-        {
-            Fun(i+1,j,digits,ans,res,keypad);
-        }
         for(int k = 0; k < keypad[digit][k] != '\0';k++){
             ans[j] = keypad[digit][k];
             Fun(i+1,j+1,digits,ans,res,keypad);
