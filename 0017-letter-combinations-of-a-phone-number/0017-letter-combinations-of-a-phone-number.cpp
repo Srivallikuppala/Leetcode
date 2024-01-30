@@ -1,23 +1,25 @@
 class Solution {
 public:
-    void Fun(int i,int j,string &digits,char *ans,vector<string> &res,char keypad[][10]){
-        if(digits[i] == '\0'){
-            if(ans[0] != '\0')
-            res.push_back(ans);
-            return ;
-            }
-        int digit = digits[i]-'0';
-        for(int k = 0; k < keypad[digit][k] != '\0';k++){
-            ans[j] = keypad[digit][k];
-            Fun(i+1,j+1,digits,ans,res,keypad);
+    void comb(int i, vector<string>&ans , string s , vector<string>keys , string digits){
+        if(digits[i]=='\0'){
+            //cout<<s<<" ";
+            ans.push_back(s);
+            return;
         }
-    }
-    vector<string> letterCombinations(string digits) {
-        vector<string>res;
-        char keypad[][10] = {"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
-        char ans[100];
-        Fun(0,0,digits,ans,res,keypad);
-        if(digits.size() == 0) return {};
-        return res;
+        int dig = digits[i]-'0';
+        if(dig==0 or dig==1)comb(i+1,ans,s,keys,digits);
+        for(int k = 0 ; keys[dig][k]!='\0';k++){
+            
+            comb(i+1,ans,s+keys[dig][k],keys,digits);
+        }
+    } 
+    vector<string> letterCombinations(string dig) {
+        
+        string digits = dig;
+        vector<string>keys={"","","abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
+        vector<string>ans;
+        if(dig=="")return ans;
+        comb(0,ans,"",keys,digits);
+        return ans;
     }
 };
